@@ -7,10 +7,18 @@
         <script type="text/javascript" src="js/script.js"></script>
     </head>
     <body>
+        <div id="modal"></div>
         <div class="header">
         </div>
         <!--header结束-->
         <div class="body">
+            <div class="account">
+                <div class="welcome"><span>用户</span>,欢迎你！(<span>xxxx-xxxx-xxxx-xxxx</span>)</div>
+                <div class="btn-logoff">注销</div>
+                <div class="btn-regist">注册</div>
+            </div>
+            <!--account结束-->
+            <div class="content">
             <div class="server">
                 <table border="1">
                     <caption>服务器列表</caption>
@@ -31,15 +39,7 @@
                             <td>192.168.100.100</td>
                             <td>2017年1月5日 15:25:25</td>
                             <td>已激活</td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td>1</td>
-                            <td>computer</td>
-                            <td>192.168.100.100</td>
-                            <td>2017年1月5日 15:25:25</td>
-                            <td>已激活</td>
-                            <td></td>
+                            <td><span class="delete" title="删除记录"> </span></td>
                         </tr>
                     </tbody>
                 </table>
@@ -47,7 +47,7 @@
             <!--server结束-->
             <div class="client">
                  <table border="1">
-                     <caption>用户列表</caption>
+                     <caption>客户端列表</caption>
                     <thead>
                         <tr>
                             <th>序号</th>
@@ -65,7 +65,7 @@
                             <td>192.168.100.100</td>
                             <td>2017年1月5日 15:25:25</td>
                             <td>已激活</td>
-                            <td></td>
+                            <td><span class="delete" title="删除记录"> </span></td>
                         </tr>
                         <tr>
                             <td>1</td>
@@ -73,7 +73,7 @@
                             <td>192.168.100.100</td>
                             <td>2017年1月5日 15:25:25</td>
                             <td>已激活</td>
-                            <td></td>
+                            <td><span class="delete" title="删除记录"> </span></td>
                         </tr>
                         <tr>
                             <td>1</td>
@@ -81,45 +81,43 @@
                             <td>192.168.100.100</td>
                             <td>2017年1月5日 15:25:25</td>
                             <td>已激活</td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td>1</td>
-                            <td>computer</td>
-                            <td>192.168.100.100</td>
-                            <td>2017年1月5日 15:25:25</td>
-                            <td>已激活</td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td>1</td>
-                            <td>computer</td>
-                            <td>192.168.100.100</td>
-                            <td>2017年1月5日 15:25:25</td>
-                            <td>已激活</td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td>1</td>
-                            <td>computer</td>
-                            <td>192.168.100.100</td>
-                            <td>2017年1月5日 15:25:25</td>
-                            <td>已激活</td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td>1</td>
-                            <td>computer</td>
-                            <td>192.168.100.100</td>
-                            <td>2017年1月5日 15:25:25</td>
-                            <td>已激活</td>
-                            <td></td>
+                            <td><span class="delete" title="删除记录"> </span></td>
                         </tr>
                     </tbody>
                 </table>
             </div>
             <!--client结束-->
+            </div>
+            <!--content结束-->
         </div>
         <!--body结束-->
+            <div class="registred">
+                <div class="reg-title">
+                <h3>您还未注册，请注册！</h3>
+                <span title="关闭">×</span>
+                </div>
+                <!--reg-title结束-->
+                <form>
+                    <label>用户名：</label><br>
+                    <input type="text" placeholder="用户名"><br>
+                    <label>密码：</label><br>
+                    <input type="password" placeholder="密码"><br>
+                    <label>重复密码：</label><br>
+                    <input type="password" placeholder="重复密码"><br>
+                    <label>公司名称：</label><br>
+                    <input type="text" placeholder="公司名称"><br>
+                    <label>联系人：</label><br>
+                    <input type="text" placeholder="联系人"><br>
+                    <label>电话号码：</label><br>
+                    <input type="tel" placeholder="手机">&nbsp;
+                    <input type="button" value="发送验证码"><br>
+                    <label>验证码：</label><br>
+                    <input type="number" placeholder="验证码"><br>
+                    <label>意见或建议：</label><br>
+                    <textarea  cols="25" rows="6" maxlength="140" placeholder="意见或建议"></textarea><br>
+                    <input type="submit" value="提交">
+                </form>
+            </div>
+            <!--registred结束-->
     </body>
 </html>

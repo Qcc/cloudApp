@@ -4,20 +4,28 @@ html,body{
     font-size:16px; 
     height: 100%;
     width: 100%;
-    font-family: 'Microsoft Yahei',verdana;
+    /*font-family: 'Microsoft Yahei',verdana;*/
+    font-family: "Arial","Microsoft YaHei","黑体","宋体",sans-serif;
     line-height: 1.5;
     min-width: 960px;
     } 
-
-ul,ol{list-style-type:none;} 
-select,input,img,select{vertical-align:middle;} 
- 
 a{text-decoration:none;} 
-a:link{color:#c1c4cb;} 
-a:visited{color:#fff;} 
-a:hover,a:active,a:focus{color:#fff;text-decoration:underline;} 
+a:link{color:#636a73;} 
+a:visited{color:#636a73;} 
+a:hover,a:active,a:focus{color:#636a73;text-decoration:underline;} 
 
-
+#modal{
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    background: #000;
+    filter:alpha(opacity=50);   
+      -moz-opacity:0.5;   
+      -khtml-opacity: 0.5;   
+      opacity: 0.5; 
+    /*background: rgba(0, 0, 0, 0.5);*/
+    z-index: 10;
+}
 .header{
     width: 100%;
     height: 300px;
@@ -25,18 +33,120 @@ a:hover,a:active,a:focus{color:#fff;text-decoration:underline;}
 }
 .body{
     width: 960px;
+    position: relative;
+    top: -200px;
+    margin: 0 auto 20px;
+    z-index: 1;
+    /*border: 1px solid green;*/
+}
+.welcome{
+    display: inline-block;
+}
+.btn-regist,.btn-logoff{
+    float: right;
+    margin-right: 10px;
+}
+.btn-regist:hover,.btn-logoff:hover{
+    color: #549f33;
+    cursor: pointer;
+}
+.account{
+    margin: 0 20px;
+    color: #fff;
+}
+.content{
     min-height: 300px;
-    margin: 0 auto;
     padding: 20px;
     border-radius: 10px 10px 0 0;
     box-shadow: 0 0 15px 5px rgba(0,0,0, .3);
-    position: relative;
-    top: -150px;
     background: #fff;
-    /*border: 1px solid green;*/
+}
+.server tr,.server td,.client tr,.client td{
+    border: 1px solid #dddddd;
+    color: #636a73;
+    text-align: center;
+    vertical-align: center;
+}
+.server th,.client th{
+    background: #dddddd;
+    color: #45525f;
+}
+.server tr:hover{
+    background: #dff0d8;
+}
+.client tr:hover{
+    background: #d9edf7;
 }
 .server>table,.client>table{
     width: 100%;
-    border: 1px solid cornflowerblue;
+    border-bottom: 1px solid #dddddd;
     border-collapse: collapse;
+    text-align: center;
+}
+
+.server>table>caption,.client>table>caption{
+    text-align: left;
+    padding-left: 25px;
+    font-size: 20px;
+    line-height: 2;
+    color: #636a73;
+}
+.server>table>caption{
+    background: url("images/server_20.png") no-repeat center left;
+}
+.client>table>caption{
+    background: url("images/client_20.png") no-repeat center left;
+}
+tr:nth-child(even){
+	background:#f0f0f0;
+}
+.delete{
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    background: url("images/delete.png") no-repeat 0 0;
+}
+.delete:hover{
+    background: url("images/delete.png") no-repeat -20px 0;
+    cursor: pointer;
+}
+.registred{
+    background: #fff;
+    width: 520px;
+    height: 580px;
+    position: absolute;
+    top: 40px;
+    left: 50%;
+    margin-left: -260px;
+    z-index: 11;
+}
+.reg-title{
+    width: 100%;
+    height: 50px;
+    background: #549f33;
+}
+.reg-title>h3{
+    display: inline-block;
+    color: #fff;
+    line-height: 50px;
+    font-size: 20px;
+    margin: 0;
+    padding: 0 0 0 10px;
+}
+.reg-title>span{
+    display: inline-block;
+    width: 30px;
+    height: 50px;
+    margin-left: 260px;
+    line-height: 40px;
+    text-align: center;
+    vertical-align: middle;
+    font-family: "宋体",sans-serif;
+    font-weight: bold;
+}
+.reg-title>span:hover{
+    color: #fff;
+}
+.registred>form{
+    padding: 10px;
 }
