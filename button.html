@@ -5,106 +5,52 @@
   <title>CSS3自定义Checkbox特效DEMO演示</title>
 </head>
 <style type="text/css">
-.checkbox{display:none}
-.label,.checkbox:after,.checkbox:before{
+.reg-status{display:none}
+.reg-label,.reg-status:after,.reg-status:before{
     -webkit-box-sizing:border-box;
     -moz-box-sizing:border-box;
     box-sizing:border-box
     }
-.label{
+.reg-label{
     outline:0;
     display:block;
     width:4em;
     height:2em;
     position:relative;
-    cursor:pointer
+    cursor:pointer;
+    background:#dddddd;
+    border-radius:2em;
+    padding:2px;
+    -webkit-transition:all .4s ease;
+    transition:all .4s ease;
     }
-.label:after,.label:before{
+.reg-label:after,.reg-label:before{
     position:relative;
     display:block;
     content:"";
     width:50%;
     height:100%
     }
-.label:after{
-    left:0
-    }
-.label:before{
+.reg-label:before{
     display:none
     }
-.checkbox:checked+.label:after{
+.reg-status:checked+.reg-label:after{
     left:50%
     }
-.label{
-    background:#e6e6e6;
-    border-radius:2em;
-    padding:2px;
-    -webkit-transition:all .4s ease;
-    transition:all .4s ease
-    }
-.label:after{
+.reg-label:after{
+    left:0;
     border-radius:50%;
     background:#fff;
     -webkit-transition:all .2s ease;
     transition:all .2s ease
     }
-.checkbox:checked+.label{
+.reg-status:checked+.reg-label{
     background:#5cb85c;
     }
- 
-
- table{
-     border-collapse: collapse;
- }
- td{
-     width: 40px;
-     height: 40px;
-     text-align: center;
-     vertical-align: center;
- }
- tr{
-     height: 30px;
- }
-
- .delete{
-    display: inline-block;
-    width: 20px;
-    height: 20px;
-    padding-bottom: -20px; 
-    background: url("css/images/delete.png") no-repeat 0 0;
-}
-.delete:hover{
-    background: url("css/images/delete.png") no-repeat -20px 0;
-}
 </style>
-<script>
-    window.onload=function(){
-        var check = document.getElementById("cbox");
-    console.log(check.checked);
-    check.onclick = function(){
-        console.log(check.checked);
-    }
-    }
-</script>
 <body>
 
-    <input class='checkbox' id='cbox' type='checkbox'><label class='label' for="cbox"></label>
-
-    <br>
-    <table border="1">
-        <tr>
-            <td>1</td>
-            <td>2</td>
-            <td>3</td>
-            <td>4</td>
-        </tr>
-        <tr>
-            <td>5</td>
-            <td>6</td>
-            <td>7</td>
-            <td><span class="delete" title="删除记录"> </span></td>
-        </tr>
-    </table>
+    <input class='reg-status' id='cbox' type='checkbox'><label class='reg-label' for="cbox"></label>
 </body>
 </html>
  

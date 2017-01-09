@@ -14,9 +14,11 @@ a:link{color:#636a73;}
 a:visited{color:#636a73;} 
 a:hover,a:active,a:focus{color:#636a73;text-decoration:underline;} 
 
+/*模态框*/
 #modal{
     width: 100%;
     height: 100%;
+    display: none;
     position: absolute;
     background: #000;
     filter:alpha(opacity=50);   
@@ -29,7 +31,7 @@ a:hover,a:active,a:focus{color:#636a73;text-decoration:underline;}
 .header{
     width: 100%;
     height: 300px;
-    background: rgb(7, 115, 219)
+    background: rgb(7, 115, 219);
 }
 .body{
     width: 960px;
@@ -42,11 +44,11 @@ a:hover,a:active,a:focus{color:#636a73;text-decoration:underline;}
 .welcome{
     display: inline-block;
 }
-.btn-regist,.btn-logoff{
+.btn-regist,.btn-logoff,.btn-modify{
     float: right;
     margin-right: 10px;
 }
-.btn-regist:hover,.btn-logoff:hover{
+.btn-regist:hover,.btn-logoff:hover,.btn-modify:hover{
     color: #549f33;
     cursor: pointer;
 }
@@ -101,6 +103,7 @@ tr:nth-child(even){
 	background:#f0f0f0;
 }
 .delete{
+    vertical-align: middle;
     display: inline-block;
     width: 20px;
     height: 20px;
@@ -110,10 +113,13 @@ tr:nth-child(even){
     background: url("images/delete.png") no-repeat -20px 0;
     cursor: pointer;
 }
+
+/*注册界面*/
 .registred{
     background: #fff;
     width: 520px;
     height: 580px;
+    display: none;
     position: absolute;
     top: 40px;
     left: 50%;
@@ -143,10 +149,104 @@ tr:nth-child(even){
     vertical-align: middle;
     font-family: "宋体",sans-serif;
     font-weight: bold;
+    cursor: pointer;
 }
 .reg-title>span:hover{
     color: #fff;
 }
 .registred>form{
-    padding: 10px;
+    padding: 10px 50px;
 }
+.label{
+    display: inline-block;
+    width: 80px;
+    line-height: 2.5;
+}
+.input{
+    width: 190px;
+    height: 25px;
+}
+.input-ver{
+    width: 90px;
+    height: 25px;
+}
+.input-code{
+    background: #0773db;
+    font-size: 100%;
+    padding: .3em .8em;
+    border: 1px solid rgba(0, 0, 0, .1);
+    background: #58a linear-gradient(hsla(0,0%, 100%, .2, transparent));
+    border-radius: .2em;
+    color: white;
+    line-height: 1.5;
+    outline: none;
+    cursor: pointer;
+}
+.input-code:hover{
+    background: #adadad;
+    cursor: default;
+}
+.input-submit{
+    background: #549f33;
+    width: 420px;
+    padding: .3em .8em;
+    border: 1px solid rgba(0, 0, 0, .1);
+    background: #58a linear-gradient(hsla(0,0%, 100%, .2, transparent));
+    border-radius: .2em;
+    box-shadow: 0 .05em .25em rgba(0, 0, 0, .5);
+    color: white;
+    text-shadow: 0 -.05em .05em rgba(0, 0, 0, .5);
+    font-size: 125%;
+    line-height: 1.5;
+    outline: none;
+    cursor: pointer;
+}
+.input-submit:hover{
+    background: #64af43;
+}
+/*自定义checkbox*/
+.reg-status{
+    display:none
+}
+.reg-label,.reg-status:after,.reg-status:before{
+    -webkit-box-sizing:border-box;
+    -moz-box-sizing:border-box;
+    box-sizing:border-box
+    }
+.reg-label{
+    vertical-align: middle;
+    outline:0;
+    display:inline-block;
+    width:3em;
+    height:1.5em;
+    position:relative;
+    cursor:pointer;
+    background:#dddddd;
+    border-radius:1.5em;
+    padding:2px;
+    -webkit-transition:all .4s ease;
+    transition:all .4s ease;
+    }
+.reg-label:after,.reg-label:before{
+    position:relative;
+    display:block;
+    content:"";
+    width:50%;
+    height:100%
+    }
+.reg-label:before{
+    display:none
+    }
+.reg-status:checked+.reg-label:after{
+    left:50%
+    }
+.reg-label:after{
+    left:0;
+    border-radius:50%;
+    background:#fff;
+    -webkit-transition:all .2s ease;
+    transition:all .2s ease
+    }
+.reg-status:checked+.reg-label{
+    background:#5cb85c;
+    }

@@ -1,0 +1,30 @@
+//打开页面 初始化数据
+// 0表示成功；
+//0~99，异常；
+// 100以上表示错误；
+//api.php POST method=indexPageMisc
+{status:0,msg:"success",
+cdkey:"XXXX-XXXX",
+clientList:[{
+    idx:1,
+   computerName:"xxx",
+   ipAddress:"192.168.1.1",
+   date:"2017/1/9 16:26:52",
+   state:0,
+}],
+serverList:[{
+   idx:1,
+   computerName:"xxx",
+   ipAddress:"192.168.1.1",
+   date:"2017/1/9 16:26:52",
+   state:0,
+},{
+   idx:2,
+   computerName:"xxx",
+   ipAddress:"192.168.1.1",
+   date:"2017/1/9 16:26:52",
+   state:0,
+}]}
+
+index.php
+main.php

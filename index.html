@@ -9,7 +9,7 @@
         <link rel="stylesheet" type="text/css" href="css/main.css">
         <script type="text/javascript" src="js/script.js"></script>
     </head>
-    <body>
+    <body id="body">
         <div id="modal"></div>
         <div class="header">
         </div>
@@ -17,8 +17,9 @@
         <div class="body">
             <div class="account">
                 <div class="welcome"><span>用户</span>,欢迎你！(<span>xxxx-xxxx-xxxx-xxxx</span>)</div>
-                <div class="btn-logoff">注销</div>
-                <div class="btn-regist">注册</div>
+                <div id="logoff" class="btn-logoff">退出</div>
+                <div id="regist" class="btn-regist">注册</div>
+                <div id="modify" class="btn-modify">设置</div>
             </div>
             <!--account结束-->
             <div class="content">
@@ -41,7 +42,9 @@
                             <td>computer</td>
                             <td>192.168.100.100</td>
                             <td>2017年1月5日 15:25:25</td>
-                            <td>已激活</td>
+                            <td>
+                            <input class='reg-status' id='sbox1' type='checkbox' checked="checked"><label class='reg-label' for="sbox1"></label>
+                            </td>
                             <td><span class="delete" title="删除记录"> </span></td>
                         </tr>
                     </tbody>
@@ -67,7 +70,9 @@
                             <td>computer</td>
                             <td>192.168.100.100</td>
                             <td>2017年1月5日 15:25:25</td>
-                            <td>已激活</td>
+                            <td>
+                            <input class='reg-status' id='cbox1' type='checkbox' checked="checked"><label class='reg-label' for="cbox1"></label>
+                            </td>
                             <td><span class="delete" title="删除记录"> </span></td>
                         </tr>
                         <tr>
@@ -75,7 +80,9 @@
                             <td>computer</td>
                             <td>192.168.100.100</td>
                             <td>2017年1月5日 15:25:25</td>
-                            <td>已激活</td>
+                            <td>
+                            <input class='reg-status' id='cbox2' type='checkbox' checked="checked"><label class='reg-label' for="cbox2"></label>    
+                            </td>
                             <td><span class="delete" title="删除记录"> </span></td>
                         </tr>
                         <tr>
@@ -83,7 +90,9 @@
                             <td>computer</td>
                             <td>192.168.100.100</td>
                             <td>2017年1月5日 15:25:25</td>
-                            <td>已激活</td>
+                            <td>
+                            <input class='reg-status' id='cbox3' type='checkbox'><label class='reg-label' for="cbox3"></label>    
+                            </td>
                             <td><span class="delete" title="删除记录"> </span></td>
                         </tr>
                     </tbody>
@@ -94,31 +103,31 @@
             <!--content结束-->
         </div>
         <!--body结束-->
-            <div class="registred">
+            <div id="reg-panel" class="registred">
                 <div class="reg-title">
                 <h3>您还未注册，请注册！</h3>
-                <span title="关闭">×</span>
+                <span id="closeReg" title="关闭">×</span>
                 </div>
                 <!--reg-title结束-->
-                <form>
-                    <label>用户名：</label><br>
-                    <input type="text" placeholder="用户名"><br>
-                    <label>密码：</label><br>
-                    <input type="password" placeholder="密码"><br>
-                    <label>重复密码：</label><br>
-                    <input type="password" placeholder="重复密码"><br>
-                    <label>公司名称：</label><br>
-                    <input type="text" placeholder="公司名称"><br>
-                    <label>联系人：</label><br>
-                    <input type="text" placeholder="联系人"><br>
-                    <label>电话号码：</label><br>
-                    <input type="tel" placeholder="手机">&nbsp;
-                    <input type="button" value="发送验证码"><br>
-                    <label>验证码：</label><br>
-                    <input type="number" placeholder="验证码"><br>
+                <form class="reg-form" method="POST" action="demo.php">
+                    <label class="label">用 户 名：</label> 
+                    <input class="input" name="username" type="text" autofocus="autofocus" min="2" max="14" required="required" placeholder="帐号/英文/中文/不含特殊字符"><br>
+                    <label class="label">密  码：</label> 
+                    <input class="input" name="password" type="password" required="required" min="6" max="14" placeholder="密码6~14位"><br>
+                    <label class="label">重复密码：</label> 
+                    <input class="input" type="password" required="required" min="6" max="14"  placeholder="重复密码"><br>
+                    <label class="label">公司名称：</label> 
+                    <input class="input" name="company" type="text" required="required" min="6" max="20" placeholder="公司名称"><br>
+                    <label class="label">联 系 人：</label> 
+                    <input class="input" name="contacts" type="text" required="required" min="2" max="4" placeholder="姓名"><br>
+                    <label class="label">电话号码：</label> 
+                    <input class="input" name="phone" type="tel" required="required" min="11" max="11" placeholder="手机"><br>
+                    <label class="label">验 证 码：</label> 
+                    <input class="input-ver" type="text"   max="4" required="required" placeholder="验证码">&nbsp;
+                    <button class="input-code" disabled="disabled">发送验证码<span>(59)</span></button><br >
                     <label>意见或建议：</label><br>
-                    <textarea  cols="25" rows="6" maxlength="140" placeholder="意见或建议"></textarea><br>
-                    <input type="submit" value="提交">
+                    <textarea  name="comments" cols="45" rows="6" maxlength="140" placeholder="意见或建议"></textarea><br><br>
+                    <input class="input-submit" type="submit" value="提 交">
                 </form>
             </div>
             <!--registred结束-->
