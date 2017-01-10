@@ -1,30 +1,176 @@
+//请求地址
+//登录地址 index.php
+//登录后住页面 main.php
+
 //打开页面 初始化数据
 // 0表示成功；
 //0~99，异常；
 // 100以上表示错误；
 //api.php POST method=indexPageMisc
-{status:0,msg:"success",
-cdkey:"XXXX-XXXX",
-clientList:[{
+{ status:0, 
+  msg:"success",
+  account:"",
+  cdkey:"XXXX-XXXX-XXXX-XXXX",
+  expireDate:"2017/1/9 16:26:52",
+  users:5,
+  clientList:[{
     idx:1,
-   computerName:"xxx",
-   ipAddress:"192.168.1.1",
-   date:"2017/1/9 16:26:52",
-   state:0,
-}],
-serverList:[{
-   idx:1,
-   computerName:"xxx",
-   ipAddress:"192.168.1.1",
-   date:"2017/1/9 16:26:52",
-   state:0,
-},{
-   idx:2,
-   computerName:"xxx",
-   ipAddress:"192.168.1.1",
-   date:"2017/1/9 16:26:52",
-   state:0,
+    computerName:"xxx",
+    ipAddress:"192.168.1.1",
+    date:"2017/1/9 16:26:52",
+    state:0,
+    }],
+  serverList:[{
+    idx:1,
+    computerName:"xxx",
+    ipAddress:"192.168.1.1",
+    date:"2017/1/9 16:26:52",
+    state:0,
+    },{
+    idx:2,
+    computerName:"xxx",
+    ipAddress:"192.168.1.1",
+    date:"2017/1/9 16:26:52",
+    state:0,
 }]}
 
-index.php
-main.php
+//短信
+//api.php POST method=sendSms
+{
+    phoneNumber:"15815815818"
+}
+//获得验证码
+{
+    status:0,
+    msg:"success",
+    verCode:"2546"
+}
+
+
+//注册
+//api.php POST method=newRegist
+{
+    status:0,
+    msg:"success"
+}
+POST
+{
+    userName:"user"，
+    password:"",//MD5
+    company:"xxx公司",
+    contacts:"张三",
+    cellPhone:"15887576587",
+    userMessage:"用户留言"
+}
+//校验用户名
+//api.php POST method=checkUserName
+{
+    status:0,
+    msg:"success"
+}
+POST
+{
+    userName："user"
+}
+
+//校验用户名密码
+//api.php POST method=checkUserPassword
+{
+    status:0,
+    msg:"success"
+}
+POST
+{
+    userName："user",
+    password：""/ MD5
+}
+
+//校验手机号
+//api.php POST method=checkPhone
+{
+    status:0,
+    msg:"success"
+}
+POST
+{
+    cellPhone："158854787556"
+}
+
+//注册
+//api.php POST method=modifyUser
+{
+    status:0,
+    msg:"success"
+}
+POST
+{
+    password:"",//MD5
+    contacts:"张三",
+    cellPhone:"15887576587",
+}
+
+
+
+//删除服务器
+//api.php POST method=deleteServer
+{
+    status:0,
+    msg:"success"
+}
+POST
+{
+    idx:1
+}
+//删除客户端
+//api.php POST method=deleteClient
+{
+    status:0,
+    msg:"success"
+}
+POST
+{
+    idx:1
+}
+
+//禁用/启用客户端
+//api.php POST method=disableClient
+{
+    status:0,
+    msg:"success"
+}
+POST
+{
+    idx：1,
+    value:1 //1 or 0
+}
+//禁用/启用服务器
+//api.php POST method=disableServer
+{
+    status:0,
+    msg:"success"
+}
+POST
+{
+    idx:1,
+    value:1 //1 or 0
+}
+
+//退出登录
+//api.php POST method=logOut
+{
+    status:0,
+    msg:"success"
+}
+POST
+{
+}
+
+
+form
+{
+    user:
+    password:
+    action: main.php
+}
+
+<img src="verifyCode.php">
