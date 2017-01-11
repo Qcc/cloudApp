@@ -35,6 +35,7 @@ function logoff(){
 //修改信息
 function modify() {
     console.log("设置");
+    loadAjaxData("./request.txt","")
 }
 
 //关闭注册面板
@@ -52,6 +53,25 @@ function showModel(){
 }
 function hideModel(){
     document.getElementById("modal").style.display="none";
+}
+
+//ajax 请求数据
+function loadAjaxData(url)
+{
+  var xmlhttp;
+  if (window.XMLHttpRequest){
+        xmlhttp=new XMLHttpRequest();
+    }else{
+      xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+    }
+  xmlhttp.onreadystatechange=function(){
+        if (xmlhttp.readyState==4 && xmlhttp.status==200){
+            console.log(xmlhttp.responseText);//得到数据
+        }
+  }
+  xmlhttp.open("GET",url,true);
+//   xmlhttp.setRequestHeader("Content-type","text/plain;charset=UTF-8");
+  xmlhttp.send();//参数"fname=Henry&lname=Ford"
 }
 
 //事件通用工具

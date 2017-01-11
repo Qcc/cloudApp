@@ -1,3 +1,5 @@
+cloud.kouton.com/clouddesktop/kis/api.php
+method=indexPageMisc
 //请求地址
 //登录地址 index.php
 //登录后住页面 main.php
