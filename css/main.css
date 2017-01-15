@@ -415,3 +415,42 @@ tr:nth-child(even) {
         opacity: 1;
     }
 }
+
+
+/*loging登录框*/
+
+.loging-header {
+    height: 50px;
+    width: 100%;
+    background: #0773db;
+}
+
+.loging {
+    border: 1px solid red;
+    width: 960px;
+    margin: 0 auto;
+}
+
+.loging-adv {
+    height: 100%;
+    float: left;
+}
+
+.loging-box {
+    float: right;
+    width: 200px;
+}
+
+.loging-footer {
+    width: 100%;
+    height: 50px;
+    background: #0773db;
+    clear: both;
+    position: absolute;
+    bottom: 0;
+}
+
+.loging-footer p {
+    margin: 0 auto;
+    color: #868686;
+}
