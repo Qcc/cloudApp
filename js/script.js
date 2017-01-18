@@ -16,15 +16,6 @@ var cloudApp = function() {
         }
     }
 
-    //退出系统 
-    var logoff = function() {
-        console.log("退出");
-    };
-    //修改信息
-    var modify = function() {
-        console.log("设置");
-    };
-
     var deleteItem = function(element) {
         console.log(element.parenNode.parenNode);
     };
@@ -143,20 +134,22 @@ var cloudApp = function() {
         var target = getElement(event);
         console.log(target.nodeName);
         switch (target.id) {
+            //关闭注册面板
             case "closeReg":
-                //关闭注册面板
                 hideEle("reg-panel", "modal");
                 break;
+                //退出系统
             case "logoff":
-                logoff();
                 break;
-            case "regist":
                 //打开注册面板
+            case "regist":
                 showEle("reg-panel", "modal");
                 break;
+                // 禁用、启用
             case "modify":
                 modify();
                 break;
+                //删除行
             case "":
                 deleteItem(target);
                 break;
