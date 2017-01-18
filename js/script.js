@@ -1,88 +1,80 @@
-window.onload = function() {
-        btnEvent();
-    }
+//全局对象
+var cloudApp = function() {
     //全局注册按钮事件
-function btnEvent() {
     var body = document.getElementById("body");
-    eventUtil.addHandler(body, "click", function(e) {
-        var event = eventUtil.getEvent(e);
-        var target = eventUtil.getElement(event);
-        console.log(target.nodeName);
-        switch (target.id) {
-            case "closeReg":
-                closeReg();
-                break;
-            case "logoff":
-                logoff();
-                break;
-            case "regist":
-                regist();
-                break;
-            case "modify":
-                modify();
-                break;
-            default:
-                console.log("无事件..");
-        }
-    });
-}
-
-//打开注册面板
-function regist() {
-    document.getElementById("reg-panel").style.display = "block";
-    showModel();
-}
-//退出系统
-function logoff() {
-    console.log("退出");
-}
-
-//修改信息
-function modify() {
-    console.log("设置");
-    loadAjaxData("./request.txt", "")
-}
-
-//关闭注册面板
-function closeReg() {
-    // var close =  document.getElementById("closeReg");
-    // eventUtil.addHandler(close,"click",function() {
-    document.getElementById("reg-panel").style.display = "none";
-    hideModel();
-    // })
-}
-
-//控制模态框 显示/隐藏
-function showModel() {
-    document.getElementById("modal").style.display = "block";
-}
-
-function hideModel() {
-    document.getElementById("modal").style.display = "none";
-}
-
-//ajax 请求数据
-function loadAjaxData(url) {
-    var xmlhttp;
-    if (window.XMLHttpRequest) {
-        xmlhttp = new XMLHttpRequest();
-    } else {
-        xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
-    }
-    xmlhttp.onreadystatechange = function() {
-        if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-            console.log(xmlhttp.responseText); //得到数据
+    //处理得到的数据
+    function initData(json) {
+        if (json.account === "") {
+            showEle("modal", "reg-panel", "regist");
+        } else {
+            hideEle("regist");
+            document.getElementById("account").innerHTML = json.account;
+            var clientList = json.clientList;
+            var serverList = json.serverList;
+            console.log(clientList);
+            console.log(serverList);
         }
     }
-    xmlhttp.open("GET", url, true);
-    //   xmlhttp.setRequestHeader("Content-type","text/plain;charset=UTF-8");
-    xmlhttp.send(); //参数"fname=Henry&lname=Ford"
-}
 
-//事件通用工具
-var eventUtil = {
+    //退出系统 
+    var logoff = function() {
+        console.log("退出");
+    };
+    //修改信息
+    var modify = function() {
+        console.log("设置");
+    };
+
+    var deleteItem = function(element) {
+        console.log(element.parenNode.parenNode);
+    };
+
+    //控制元素显示/隐藏
+    var showEle = function(eleIds) {
+        for (var i = 0; i < arguments.length; i++) {
+            document.getElementById(arguments[i]).style.display = "block";
+        }
+    };
+
+    var hideEle = function(eleIds) {
+        for (var i = 0; i < arguments.length; i++) {
+            document.getElementById(arguments[i]).style.display = "none";
+        }
+    };
+
+    //ajax 请求Post数据
+    var loadAjaxData = function(url, string, callback) {
+        //显示加载
+        showEle("loading", "modal");
+        var xmlhttp;
+        if (window.XMLHttpRequest) {
+            xmlhttp = new XMLHttpRequest();
+        } else if (window.ActiveXObject) {
+            xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+        } else {
+            console.error("无法创建Ajax对象!");
+        }
+        xmlhttp.onreadystatechange = function() {
+            if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+                var json = JSON.parse(xmlhttp.responseText);
+                if (json.status === 0) {
+                    hideEle("loading", "modal");
+                    callback(json);
+                } else {
+                    console.error("数据错误：" + json);
+                }
+            }
+        }
+        xmlhttp.open("POST", url, true);
+        //   xmlhttp.setRequestHeader("Content-type","text/plain;charset=UTF-8");
+        xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        xmlhttp.send(string); //参数"fname=Henry&lname=Ford"
+        console.log(string);
+    };
+
+    //事件通用工具
     //添加句柄
-    addHandler: function(element, type, handler) {
+    var addHandler = function(element, type, handler) {
         if (element.addEventListener) {
             element.addEventListener(type, handler, false);
         } else if (element.attachEvent) {
@@ -90,9 +82,9 @@ var eventUtil = {
         } else {
             element['on' + type] = handler;
         }
-    },
+    };
     //删除句柄
-    removeHandler: function(element, type, handler) {
+    var removeHandler = function(element, type, handler) {
         if (element.removeEventListener) {
             element.removeEventListener(type, handler, false);
         } else if (element.detachEvent) {
@@ -100,33 +92,84 @@ var eventUtil = {
         } else {
             element['on' + type] = null;
         }
-    },
+    };
     //获得事件对象
-    getEvent: function(event) {
+    var getEvent = function(event) {
         return event ? event : window.event;
-    },
+    };
     //获得事件类型
-    getType: function(event) {
+    var getType = function(event) {
         return event.type;
-    },
+    };
     //获得目标对象
-    getElement: function(event) {
+    var getElement = function(event) {
         return event.target || event.srcElement;
-    },
+    };
     //阻止元素默认行为
-    preventDefault: function(event) {
+    var preventDefault = function(event) {
         if (event.preventDefault) {
             event.preventDefault();
         } else {
             event.returnValue = false;
         }
-    },
+    };
     //阻止冒泡
-    stopPropagation: function(event) {
+    var stopPropagation = function(event) {
         if (event.stopPropagation) {
             event.stopPropagation();
         } else {
             event.cancelBubble = true;
         }
     }
+
+    // 转为unicode 编码  
+    var encodeUnicode = function(str) {
+        var res = [];
+        for (var i = 0; i < str.length; i++) {
+            res[i] = ("0000" + str.charCodeAt(i).toString(16)).slice(-4);
+        }
+        return "\\u" + res.join("\\u");
+    };
+
+    //unicode解码  
+    var decodeUnicode = function(str) {
+        str = str.replace(/\\/g, "%");
+        return unescape(str);
+    };
+
+    //全局注册按钮事件
+    addHandler(body, "click", function(e) {
+        var event = getEvent(e);
+        var target = getElement(event);
+        console.log(target.nodeName);
+        switch (target.id) {
+            case "closeReg":
+                //关闭注册面板
+                hideEle("reg-panel", "modal");
+                break;
+            case "logoff":
+                logoff();
+                break;
+            case "regist":
+                //打开注册面板
+                showEle("reg-panel", "modal");
+                break;
+            case "modify":
+                modify();
+                break;
+            case "":
+                deleteItem(target);
+                break;
+            default:
+                console.log("无事件..");
+        }
+    });
+    //获得初始数据
+    loadAjaxData("../api.php", "method=indexPageMisc", initData);
+};
+
+
+window.onload = function() {
+    //添加全局点击事件
+    window.cloudApp();
 }

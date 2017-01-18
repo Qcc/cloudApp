@@ -72,9 +72,14 @@ a:focus {
     display: inline-block;
 }
 
-.btn-regist,
 .btn-logoff,
 .btn-modify {
+    float: right;
+    margin-right: 10px;
+}
+
+.btn-regist {
+    display: none;
     float: right;
     margin-right: 10px;
 }
@@ -246,7 +251,7 @@ tr:nth-child(even) {
 }
 
 .input-code:hover {
-    background: #adadad;
+    background: #3783fb;
     cursor: default;
 }
 
@@ -274,7 +279,7 @@ tr:nth-child(even) {
 /*自定义checkbox*/
 
 .reg-status {
-    display: none
+    display: none;
 }
 
 .reg-label,

@@ -1,14 +1,25 @@
 var book = {};
 Object.defineProperties(book, {
     _year: { value: 2004 },
-    age: { value: 20 },
-    name: {
+    edition: { value: 1 },
+    year: {
         get: function() {
-            return this._name;
+            return this._year;
         },
         set: function(value) {
-            this._name = value;
+            if (value > 2004) {
+                this._year = value;
+                this.edition += value - 2004;
+            }
         }
     }
 });
-console.log("runing..");
+var descriptor = Object.getOwnPropertyDescriptor(book, "_year");
+console.log(descriptor.value);
+console.log(descriptor.configurable);
+console.log(typeof descriptor.get);
+console.log("-----------runing..--------");
+var descriptor = Object.getOwnPropertyDescriptor(book, "year");
+console.log(descriptor.value);
+console.log(descriptor.configurable);
+console.log(typeof descriptor.get);
