@@ -1,9 +1,9 @@
-//全局对象
+//全局函数
 var cloudApp = function() {
     //全局注册按钮事件
     var body = document.getElementById("body");
     //处理得到的数据
-    function initData(json) {
+    var initDataCallback = function(json) {
         if (json.account === "") {
             showEle("modal", "reg-panel", "regist");
         } else {
@@ -34,7 +34,7 @@ var cloudApp = function() {
     };
 
     //ajax 请求Post数据
-    var loadAjaxData = function(url, string, callback) {
+    var loadAjaxData = function(string, callback) {
         //显示加载
         showEle("loading", "modal");
         var xmlhttp;
@@ -56,11 +56,11 @@ var cloudApp = function() {
                 }
             }
         }
-        xmlhttp.open("POST", url, true);
+        xmlhttp.open("POST", "../api.php", true);
         //   xmlhttp.setRequestHeader("Content-type","text/plain;charset=UTF-8");
         xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
         xmlhttp.send(string); //参数"fname=Henry&lname=Ford"
-        console.log(string);
+        console.log("发送ajax参数：" + string);
     };
 
     //事件通用工具
@@ -158,11 +158,11 @@ var cloudApp = function() {
         }
     });
     //获得初始数据
-    loadAjaxData("../api.php", "method=indexPageMisc", initData);
+    loadAjaxData("method=indexPageMisc", initDataCallback);
 };
 
 
 window.onload = function() {
-    //添加全局点击事件
+    //全局函数
     window.cloudApp();
 }
