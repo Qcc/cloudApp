@@ -39,11 +39,13 @@ a:focus {
 /*模态框*/
 
 #modal {
-    width: 100%;
-    height: 100%;
     display: none;
     /*控制模态框状态*/
     position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
     background: #000;
     filter: alpha(opacity=70);
     -moz-opacity: 0.7;
@@ -73,13 +75,8 @@ a:focus {
 }
 
 .btn-logoff,
+.btn-regist,
 .btn-modify {
-    float: right;
-    margin-right: 10px;
-}
-
-.btn-regist {
-    display: none;
     float: right;
     margin-right: 10px;
 }

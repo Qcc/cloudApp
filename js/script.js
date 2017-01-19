@@ -1,18 +1,68 @@
 //全局函数
 var cloudApp = function() {
-    //全局注册按钮事件
-    var body = document.getElementById("body");
+    //顶部菜单栏按钮
+    var account = document.getElementById("account");
+    // 注册页面
+    var regPanel = document.getElementById("reg-panel");
+    // 发动验证码按钮
+    var inputCode = document.getElementById("input-code");
     //处理得到的数据
     var initDataCallback = function(json) {
+        var serverTable = document.getElementById("server-table-tbody");
+        var clientTable = document.getElementById("client-table-tbody");
+        //隐藏等待界面
+        hideEle("loading", "modal");
         if (json.account === "") {
+            //未注册，展示注册页面
             showEle("modal", "reg-panel", "regist");
         } else {
+            //已注册隐藏注册按钮
             hideEle("regist");
-            document.getElementById("account").innerHTML = json.account;
-            var clientList = json.clientList;
-            var serverList = json.serverList;
-            console.log(clientList);
-            console.log(serverList);
+        }
+        document.getElementById("account-name").innerHTML = json.account;
+        fillData(json.serverList, serverTable);
+        fillData(json.clientList, clientTable);
+    }
+    var fillData = function(arrayObj, table) {
+        for (var s = 0; s < arrayObj.length; s++) {
+            //创建服务器列表行元素
+            var tr = document.createElement("tr");
+            var number = document.createElement("td");
+            var computerName = document.createElement("td");
+            var date = document.createElement("td");
+            var ipAddress = document.createElement("td");
+            var state = document.createElement("td");
+            var dele = document.createElement("td");
+            var input = document.createElement("input");
+            var label = document.createElement("label");
+            var span = document.createElement("span");
+            var idx = arrayObj[s].type + "-" + arrayObj[s].idx
+                //给给行元素赋值
+            number.innerText = s + 1;
+            computerName.innerText = arrayObj[s].computerName;
+            date.innerText = arrayObj[s].date;
+            ipAddress.innerText = arrayObj[s].ipAddress;
+            span.setAttribute("class", "delete");
+            span.setAttribute("title", "删除记录");
+            label.setAttribute("class", "reg-label");
+            label.setAttribute("for", idx);
+            input.setAttribute("class", "reg-status");
+            input.setAttribute("id", idx);
+            input.setAttribute("type", "checkbox");
+            if (arrayObj[s].state) {
+                input.checked = true;
+            }
+            //添加元素
+            dele.appendChild(span);
+            state.appendChild(input);
+            state.appendChild(label);
+            tr.appendChild(number);
+            tr.appendChild(computerName);
+            tr.appendChild(ipAddress);
+            tr.appendChild(date);
+            tr.appendChild(state);
+            tr.appendChild(dele);
+            table.appendChild(tr);
         }
     }
 
@@ -33,10 +83,8 @@ var cloudApp = function() {
         }
     };
 
-    //ajax 请求Post数据
+    //初始化ajax 请求Post数据
     var loadAjaxData = function(string, callback) {
-        //显示加载
-        showEle("loading", "modal");
         var xmlhttp;
         if (window.XMLHttpRequest) {
             xmlhttp = new XMLHttpRequest();
@@ -49,7 +97,6 @@ var cloudApp = function() {
             if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
                 var json = JSON.parse(xmlhttp.responseText);
                 if (json.status === 0) {
-                    hideEle("loading", "modal");
                     callback(json);
                 } else {
                     console.error("数据错误：" + json);
@@ -128,35 +175,55 @@ var cloudApp = function() {
         return unescape(str);
     };
 
-    //全局注册按钮事件
-    addHandler(body, "click", function(e) {
+    //顶部菜单按钮事件
+    addHandler(account, "click", function(e) {
         var event = getEvent(e);
         var target = getElement(event);
         console.log(target.nodeName);
+
         switch (target.id) {
-            //关闭注册面板
-            case "closeReg":
-                hideEle("reg-panel", "modal");
-                break;
-                //退出系统
+            //退出系统
             case "logoff":
+                console.log("退出..");
                 break;
                 //打开注册面板
             case "regist":
                 showEle("reg-panel", "modal");
                 break;
-                // 禁用、启用
             case "modify":
-                modify();
-                break;
-                //删除行
-            case "":
-                deleteItem(target);
+                //设置界面
+                console.log("设置..");
                 break;
             default:
                 console.log("无事件..");
         }
     });
+    //注册页面事件
+    addHandler(regPanel, "click", function(e) {
+        var event = getEvent(e);
+        var target = getElement(event);
+        console.log(target.nodeName);
+
+        switch (target.id) {
+            //关闭注册页面
+            case "closeReg":
+                hideEle("reg-panel", "modal");
+                break;
+                //发送短信按钮
+            case "input-code":
+                console.log("发送短信按钮...");
+                break;
+                //提交表单
+            case "regsubmit":
+                console.log("提交注册表单...");
+                break;
+            default:
+                console.log("无事件..");
+        }
+    });
+
+    //初始化显示加载
+    showEle("loading", "modal");
     //获得初始数据
     loadAjaxData("method=indexPageMisc", initDataCallback);
 };

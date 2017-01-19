@@ -20,6 +20,7 @@ method=indexPageMisc
     computerName:"xxx",
     ipAddress:"192.168.1.1",
     date:"2017/1/9 16:26:52",
+    "type"=>"client",
     state:0,
     }],
   serverList:[{
@@ -27,12 +28,14 @@ method=indexPageMisc
     computerName:"xxx",
     ipAddress:"192.168.1.1",
     date:"2017/1/9 16:26:52",
+    "type":"server",
     state:0,
     },{
     idx:2,
     computerName:"xxx",
     ipAddress:"192.168.1.1",
     date:"2017/1/9 16:26:52",
+    "type":"server",
     state:0,
 }]}
 
