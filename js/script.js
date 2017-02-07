@@ -202,7 +202,7 @@ var cloudApp = function() {
     addHandler(regPanel, "click", function(e) {
         var event = getEvent(e);
         var target = getElement(event);
-        console.log(target.nodeName);
+        // console.log(target.nodeName);
 
         switch (target.id) {
             //关闭注册页面

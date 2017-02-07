@@ -59,6 +59,7 @@ a:focus {
     width: 100%;
     height: 300px;
     background: rgb(7, 115, 219);
+    background: url("images/blue_background.jpg") no-repeat center;
 }
 
 .body {
@@ -274,6 +275,52 @@ tr:nth-child(even) {
 
 
 /*自定义checkbox*/
+
+.switch-status {
+    vertical-align: middle;
+    width: 3.5em;
+    height: 1.7em;
+    position: relative;
+    /*border: 1px solid #dfdfdf;*/
+    background-color: #dddddd;
+    box-shadow: #dddddd 0 0 0 0 inset;
+    border-radius: 1.5em;
+    background-clip: content-box;
+    display: inline-block;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    user-select: none;
+    outline: none;
+    transition: border cubic-bezier(0, 0, 0, 1) 0.4s, box-shadow cubic-bezier(0, 0, 0, 1) 0.4s;
+}
+
+.switch-status:before {
+    content: '';
+    width: 1.5em;
+    height: 1.3em;
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    border-radius: 50%;
+    background-color: #fff;
+    /*box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);*/
+    transition: left 0.3s;
+}
+
+.switch-status:checked {
+    border-color: #5cb85c;
+    box-shadow: #5cb85c 0 0 0 16px inset;
+    background-color: #5cb85c;
+    transition: border ease 0.4s, box-shadow ease 0.4s, background-color ease 1.2s;
+}
+
+.switch-status:checked:before {
+    left: 50%;
+    transition: left 0.3s;
+}
+
+
+/*=======兼容ff========*/
 
 .reg-status {
     display: none;
