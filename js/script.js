@@ -6,23 +6,61 @@ var cloudApp = function() {
     var regPanel = document.getElementById("reg-panel");
     // 发动验证码按钮
     var inputCode = document.getElementById("input-code");
-    //处理得到的数据
-    var initDataCallback = function(json) {
-        var serverTable = document.getElementById("server-table-tbody");
-        var clientTable = document.getElementById("client-table-tbody");
+    //服务器，客户端列表
+    var serverTable = document.getElementById("server-table-tbody");
+    var clientTable = document.getElementById("client-table-tbody");
+    var alertBox = document.getElementById("alertBox");
+    //弹出Alert消息
+    var alertMessage = function(message) {
+        var t;
+        alertBox.innerText = message;
+        alertBox.style.display = "block";
+        if (t) {
+            clearTimeout(t);
+        }
+        t = setTimeout("alertBox.style.display = 'none'", 3000);
+        console.log("alertMessage:" + message);
+    };
+    //初始化回调函数，处理展示得到的数据
+    var initDataCallback = function(reBackObjData) {
         //隐藏等待界面
-        hideEle("loading", "modal");
-        if (json.account === "") {
+        showOrHideEle(["loading", "modal"], false);
+        if (reBackObjData.account === "") {
             //未注册，展示注册页面
-            showEle("modal", "reg-panel", "regist");
+            showOrHideEle(["modal", "reg-panel", "regist"], true);
+            showOrHideEle(["modify"], false);
         } else {
             //已注册隐藏注册按钮
-            hideEle("regist");
+            showOrHideEle(["regist"], false);
+            document.getElementById("account-name").innerHTML = reBackObjData.account;
         }
-        document.getElementById("account-name").innerHTML = json.account;
-        fillData(json.serverList, serverTable);
-        fillData(json.clientList, clientTable);
-    }
+        fillData(reBackObjData.serverList, serverTable);
+        fillData(reBackObjData.clientList, clientTable);
+    };
+    //退出系统回调函数
+    var logOutCallback = function(reBackObjData) {
+        window.location.pathname = "index.php";
+    };
+
+    //删除服务器端列表项回调
+    var deleteServerListCallback = function(reBackObjData) {
+        alertMessage("该项记录已删除");
+
+    };
+    //服务器端列表项开关回调
+    var switchServerListCallback = function(reBackObjData) {
+        alertMessage("已生效");
+    };
+    //删除客户端列表项回调
+    var deleteClientListCallback = function(reBackObjData) {
+        alertMessage("该项记录已删除");
+
+    };
+    //客户端列表项开关回调
+    var switchClientListCallback = function(reBackObjData) {
+        alertMessage("已生效");
+    };
+
     var fillData = function(arrayObj, table) {
         for (var s = 0; s < arrayObj.length; s++) {
             //创建服务器列表行元素
@@ -34,20 +72,15 @@ var cloudApp = function() {
             var state = document.createElement("td");
             var dele = document.createElement("td");
             var input = document.createElement("input");
-            var label = document.createElement("label");
             var span = document.createElement("span");
-            var idx = arrayObj[s].type + "-" + arrayObj[s].idx
-                //给给行元素赋值
-            number.innerText = s + 1;
+            //给给行元素赋值
+            number.innerText = arrayObj[s].idx;
             computerName.innerText = arrayObj[s].computerName;
             date.innerText = arrayObj[s].date;
             ipAddress.innerText = arrayObj[s].ipAddress;
             span.setAttribute("class", "delete");
             span.setAttribute("title", "删除记录");
-            label.setAttribute("class", "reg-label");
-            label.setAttribute("for", idx);
-            input.setAttribute("class", "reg-status");
-            input.setAttribute("id", idx);
+            input.setAttribute("class", "switch-status");
             input.setAttribute("type", "checkbox");
             if (arrayObj[s].state) {
                 input.checked = true;
@@ -55,7 +88,6 @@ var cloudApp = function() {
             //添加元素
             dele.appendChild(span);
             state.appendChild(input);
-            state.appendChild(label);
             tr.appendChild(number);
             tr.appendChild(computerName);
             tr.appendChild(ipAddress);
@@ -64,27 +96,24 @@ var cloudApp = function() {
             tr.appendChild(dele);
             table.appendChild(tr);
         }
-    }
+    };
 
     var deleteItem = function(element) {
         console.log(element.parenNode.parenNode);
     };
-
-    //控制元素显示/隐藏
-    var showEle = function(eleIds) {
-        for (var i = 0; i < arguments.length; i++) {
-            document.getElementById(arguments[i]).style.display = "block";
+    //控制元素显示或隐藏
+    var showOrHideEle = function(eleIdsArry, booleamParameter) {
+        var dis = "block";
+        if (!booleamParameter) {
+            dis = "none";
         }
-    };
-
-    var hideEle = function(eleIds) {
-        for (var i = 0; i < arguments.length; i++) {
-            document.getElementById(arguments[i]).style.display = "none";
+        for (var i = 0; i < eleIdsArry.length; i++) {
+            document.getElementById(eleIdsArry[i]).style.display = dis;
         }
     };
 
     //初始化ajax 请求Post数据
-    var loadAjaxData = function(string, callback) {
+    var loadAjaxData = function(ajaxParameter, callback) {
         var xmlhttp;
         if (window.XMLHttpRequest) {
             xmlhttp = new XMLHttpRequest();
@@ -95,19 +124,19 @@ var cloudApp = function() {
         }
         xmlhttp.onreadystatechange = function() {
             if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-                var json = JSON.parse(xmlhttp.responseText);
-                if (json.status === 0) {
-                    callback(json);
+                var obj = JSON.parse(xmlhttp.responseText);
+                if (obj.status === 0) {
+                    callback(obj);
                 } else {
-                    console.error("数据错误：" + json);
+                    console.log("网络错误,请刷新后重试：" + obj);
                 }
             }
         }
         xmlhttp.open("POST", "../api.php", true);
         //   xmlhttp.setRequestHeader("Content-type","text/plain;charset=UTF-8");
         xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-        xmlhttp.send(string); //参数"fname=Henry&lname=Ford"
-        console.log("发送ajax参数：" + string);
+        xmlhttp.send(ajaxParameter); //参数"fname=Henry&lname=Ford"
+        console.log("发送ajax参数：" + ajaxParameter);
     };
 
     //事件通用工具
@@ -158,7 +187,7 @@ var cloudApp = function() {
         } else {
             event.cancelBubble = true;
         }
-    }
+    };
 
     // 转为unicode 编码  
     var encodeUnicode = function(str) {
@@ -184,11 +213,11 @@ var cloudApp = function() {
         switch (target.id) {
             //退出系统
             case "logoff":
-                console.log("退出..");
+                loadAjaxData("method=logOut", logOutCallback);
                 break;
                 //打开注册面板
             case "regist":
-                showEle("reg-panel", "modal");
+                showOrHideEle(["reg-panel", "modal"], true);
                 break;
             case "modify":
                 //设置界面
@@ -207,7 +236,7 @@ var cloudApp = function() {
         switch (target.id) {
             //关闭注册页面
             case "closeReg":
-                hideEle("reg-panel", "modal");
+                showOrHideEle(["reg-panel", "modal"], false);
                 break;
                 //发送短信按钮
             case "input-code":
@@ -221,9 +250,88 @@ var cloudApp = function() {
                 console.log("无事件..");
         }
     });
+    //服务器列表事件
+    addHandler(serverTable, "click", function(e) {
+        var event = getEvent(e);
+        var target = getElement(event);
+        var ele = target.nodeName.toLowerCase();
+        switch (ele) {
+            //span元素为删除按钮
+            case "span":
+                var state = target.parentNode.previousSibling.firstChild.checked;
+                console.log(state);
+                if (state) {
+                    alertMessage("请先禁用该计算机后，再进行删除。");
+                    return;
+                }
+                var ajaxParameter = "method=deleteServer" + "&" + "idx=" + target.parentNode.parentNode.firstChild.innerHTML;
+                loadAjaxData(ajaxParameter, deleteServerListCallback);
+                break;
+                //input元素为状态开关
+            case "input":
+                console.log("服务器开关");
+                var value = 1;
+                //如果是开启服务器需要判断当前是否有别的服务器为开启状态，否则直接禁用服务器
+                if (target.checked) {
+                    var count = 0;
+                    var switchList = serverTable.getElementsByTagName("input");
+                    for (var i = 0; i < switchList.length; i++) {
+                        if (switchList[i].checked === true) {
+                            count++;
+                        }
+                    }
+                    if (count > 1) {
+                        //阻止checkbox默认行为
+                        preventDefault(event);
+                        alertMessage("同时只能启用一台服务器，请先禁用已启用的服务器。");
+                        return;
+                    }
+                    value = 0;
+                }
+                console.log(target.parentNode.parentNode.firstChild.innerHTML);
+                var ajaxParameter = "method=disableServer" + "&" + "idx=" + target.parentNode.parentNode.firstChild.innerHTML + "&" + "value=" + value;
+                loadAjaxData(ajaxParameter, switchServerListCallback);
+                break;
+            default:
+                console.log("无事件");
+        }
+    });
+
+    //客户端列表页面事件
+    addHandler(clientTable, "click", function(e) {
+        var event = getEvent(e);
+        var target = getElement(event);
+        var ele = target.nodeName.toLowerCase();
+        switch (ele) {
+            case "span":
+                console.log("客户端删除");
+                var state = target.parentNode.previousSibling.firstChild.checked;
+                console.log(state);
+                if (state) {
+                    alertMessage("请先禁用该计算机后，再进行删除。");
+                    return;
+                }
+                var ajaxParameter = "method=deleteClient" + "&" + "idx=" + target.parentNode.parentNode.firstChild.innerHTML;
+                loadAjaxData(ajaxParameter, deleteClientListCallback);
+                break;
+                break;
+            case "input":
+                var value = 0;
+                if (target.checked) {
+                    value = 1;
+                }
+                console.log("客户端开关");
+                console.log(target.parentNode.parentNode.firstChild.innerHTML);
+                var ajaxParameter = "method=disableClient" + "&" + "idx=" + target.parentNode.parentNode.firstChild.innerHTML + "&" + "value=" + value;
+                loadAjaxData(ajaxParameter, switchClientListCallback);
+                break;
+            default:
+                console.log("无事件");
+        }
+    });
 
     //初始化显示加载
-    showEle("loading", "modal");
+    showOrHideEle(["loading", "modal"], true);
     //获得初始数据
     loadAjaxData("method=indexPageMisc", initDataCallback);
 };
@@ -232,4 +340,4 @@ var cloudApp = function() {
 window.onload = function() {
     //全局函数
     window.cloudApp();
-}
+};
