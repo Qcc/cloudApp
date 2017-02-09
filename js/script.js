@@ -30,7 +30,7 @@ var cloudApp = function() {
         if (reBackObjData.account === "") {
             //未注册，展示注册页面
             showOrHideEle(["modal", "reg-panel", "regist"], true);
-            // showOrHideEle(["modify"], false);
+            showOrHideEle(["modify"], false);
         } else {
             //已注册隐藏注册按钮
             showOrHideEle(["regist"], false);
