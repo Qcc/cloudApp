@@ -130,13 +130,14 @@ a:focus {
     border: 1px solid #dddddd;
     color: #636a73;
     text-align: center;
-    vertical-align: center;
+    vertical-align: middle;
 }
 
 .server th,
 .client th {
     background: #dddddd;
     color: #45525f;
+    border: 0;
 }
 
 .server tr:hover {
@@ -190,9 +191,10 @@ tr:nth-child(even) {
 }
 
 
-/*注册界面*/
+/*注册、设置界面*/
 
-.registred {
+.registred,
+.settings {
     background: #fff;
     width: 520px;
     height: 580px;
@@ -204,13 +206,16 @@ tr:nth-child(even) {
     z-index: 11;
 }
 
-.reg-title {
+.reg-title,
+.setting-title {
     width: 100%;
     height: 50px;
     background: #549f33;
+    position: relative;
 }
 
-.reg-title>h3 {
+.reg-title>h3,
+.setting-title>h3 {
     display: inline-block;
     color: #fff;
     line-height: 50px;
@@ -219,12 +224,14 @@ tr:nth-child(even) {
     padding: 0 0 0 10px;
 }
 
-.reg-title>span {
+.reg-title>span,
+.setting-title>span {
     display: inline-block;
-    width: 30px;
+    width: 50px;
     height: 50px;
-    margin-left: 260px;
-    line-height: 40px;
+    position: absolute;
+    right: 0;
+    line-height: 50px;
     text-align: center;
     vertical-align: middle;
     font-family: "宋体", sans-serif;
@@ -232,11 +239,13 @@ tr:nth-child(even) {
     cursor: pointer;
 }
 
-.reg-title>span:hover {
+.reg-title>span:hover,
+.setting-title>span:hover {
     color: #fff;
 }
 
-.registred>form {
+.registred>form,
+.settings>form {
     padding: 10px 50px;
 }
 
@@ -274,7 +283,8 @@ tr:nth-child(even) {
     cursor: default;
 }
 
-.input-submit {
+.input-submit,
+.seve-submit {
     background: #549f33;
     width: 420px;
     padding: .3em .8em;
@@ -290,52 +300,84 @@ tr:nth-child(even) {
     cursor: pointer;
 }
 
-.input-submit:hover {
+.input-submit:hover,
+.seve-submit:hover {
     background: #64af43;
 }
 
 
 /*自定义checkbox*/
 
-.switch-status {
-    vertical-align: middle;
-    width: 48px;
-    height: 22px;
+.itemswitchwarp {
     position: relative;
-    background-color: #dddddd;
-    box-shadow: #dddddd 0 0 0 0 inset;
-    border-radius: 22px;
-    background-clip: content-box;
     display: inline-block;
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    user-select: none;
-    outline: none;
-    transition: border cubic-bezier(0, 0, 0, 1) 0.4s, box-shadow cubic-bezier(0, 0, 0, 1) 0.4s;
+    vertical-align: middle;
+    width: 80px;
+    height: 26px;
+    margin: 0;
+    padding: 0;
 }
 
-.switch-status:before {
-    content: '';
-    width: 18px;
-    height: 18px;
+.itemswitchbackground {
+    width: 80px;
+    height: 24px;
+    margin: 0;
+    padding: 0;
+    background: #cccccc;
+    position: absolute;
+    border-radius: 50px;
+    transition: background-color ease 1.2s;
+}
+
+.itemswitchbackground:after {
+    content: '禁用';
+    color: #aaaaaa;
+    position: absolute;
+    right: 10px;
+    font: 12px/26px Arial, sans-serif;
+    font-weight: bold;
+    vertical-align: middle;
+}
+
+.itemswitchbackground:before {
+    content: '启用';
+    color: #ffffff;
+    position: absolute;
+    left: 10px;
+    z-index: 0;
+    font: 12px/26px Arial, sans-serif;
+    font-weight: bold;
+    vertical-align: middle;
+}
+
+.itemswitchlabel {
+    display: block;
+    width: 34px;
+    height: 20px;
+    cursor: pointer;
     position: absolute;
     top: 2px;
     left: 2px;
-    border-radius: 50%;
-    background-color: #fff;
-    transition: left 0.3s;
+    z-index: 1;
+    background: #ffffff;
+    border-radius: 50px;
+    -moz-transition: all 0.4s ease;
+    -o-transition: all 0.4s ease;
+    -webkit-transition: all 0.4s ease;
+    transition: all 0.4s ease;
 }
 
-.switch-status:checked {
-    border-color: #5cb85c;
-    box-shadow: #5cb85c 0 0 0 16px inset;
-    background-color: #5cb85c;
-    transition: border ease 0.4s, box-shadow ease 0.4s, background-color ease 1.2s;
+.itemswitch {
+    display: none;
 }
 
-.switch-status:checked:before {
-    left: 28px;
-    transition: left 0.3s;
+.itemswitch:checked+label {
+    left: 43px;
+}
+
+.itemswitch:checked+label+.itemswitchbackground {
+    background: #5cb85c;
+    transition: background-color ease 1.2s;
 }
 
 

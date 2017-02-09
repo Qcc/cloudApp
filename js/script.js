@@ -4,6 +4,8 @@ var cloudApp = function() {
     var account = document.getElementById("account");
     // 注册页面
     var regPanel = document.getElementById("reg-panel");
+    //设置页面
+    var settingPanel = document.getElementById("setting-panel");
     // 发动验证码按钮
     var inputCode = document.getElementById("input-code");
     //服务器，客户端列表
@@ -28,7 +30,7 @@ var cloudApp = function() {
         if (reBackObjData.account === "") {
             //未注册，展示注册页面
             showOrHideEle(["modal", "reg-panel", "regist"], true);
-            showOrHideEle(["modify"], false);
+            // showOrHideEle(["modify"], false);
         } else {
             //已注册隐藏注册按钮
             showOrHideEle(["regist"], false);
@@ -61,17 +63,24 @@ var cloudApp = function() {
         alertMessage("已生效");
     };
 
+    //初始化添加数据
     var fillData = function(arrayObj, table) {
         for (var s = 0; s < arrayObj.length; s++) {
             //创建服务器列表行元素
             var tr = document.createElement("tr");
+            //列
             var number = document.createElement("td");
             var computerName = document.createElement("td");
             var date = document.createElement("td");
             var ipAddress = document.createElement("td");
             var state = document.createElement("td");
             var dele = document.createElement("td");
+            //checkbox开关
+            var checkboxWarp = document.createElement("div");
             var input = document.createElement("input");
+            var label = document.createElement("label");
+            var checkBoxBackground = document.createElement("div");
+            //删除按钮
             var span = document.createElement("span");
             //给给行元素赋值
             number.innerText = arrayObj[s].idx;
@@ -80,14 +89,23 @@ var cloudApp = function() {
             ipAddress.innerText = arrayObj[s].ipAddress;
             span.setAttribute("class", "delete");
             span.setAttribute("title", "删除记录");
-            input.setAttribute("class", "switch-status");
+            var labelId = "itemswitch" + arrayObj[s].type + arrayObj[s].idx
+            checkboxWarp.setAttribute("class", "itemswitchwarp");
+            input.setAttribute("class", "itemswitch");
             input.setAttribute("type", "checkbox");
+            input.setAttribute("id", labelId);
+            label.setAttribute("for", labelId);
+            label.setAttribute("class", "itemswitchlabel");
+            checkBoxBackground.setAttribute("class", "itemswitchbackground");
             if (arrayObj[s].state) {
                 input.checked = true;
             }
             //添加元素
             dele.appendChild(span);
-            state.appendChild(input);
+            checkboxWarp.appendChild(input);
+            checkboxWarp.appendChild(label);
+            checkboxWarp.appendChild(checkBoxBackground);
+            state.appendChild(checkboxWarp);
             tr.appendChild(number);
             tr.appendChild(computerName);
             tr.appendChild(ipAddress);
@@ -222,6 +240,7 @@ var cloudApp = function() {
             case "modify":
                 //设置界面
                 console.log("设置..");
+                showOrHideEle(["setting-panel", "modal"], true);
                 break;
             default:
                 console.log("无事件..");
@@ -250,6 +269,25 @@ var cloudApp = function() {
                 console.log("无事件..");
         }
     });
+    //设置页面事件
+    addHandler(settingPanel, "click", function(e) {
+        var event = getEvent(e);
+        var target = getElement(event);
+        // console.log(target.nodeName);
+
+        switch (target.id) {
+            //关闭注册页面
+            case "closeSetting":
+                showOrHideEle(["setting-panel", "modal"], false);
+                break;
+                //保存修改
+            case "seveStting":
+                console.log("保存修改信息...");
+                break;
+            default:
+                console.log("无事件..");
+        }
+    });
     //服务器列表事件
     addHandler(serverTable, "click", function(e) {
         var event = getEvent(e);
@@ -258,7 +296,7 @@ var cloudApp = function() {
         switch (ele) {
             //span元素为删除按钮
             case "span":
-                var state = target.parentNode.previousSibling.firstChild.checked;
+                var state = target.parentNode.previousSibling.firstChild.firstChild.checked;
                 console.log(state);
                 if (state) {
                     alertMessage("请先禁用该计算机后，再进行删除。");
@@ -288,8 +326,8 @@ var cloudApp = function() {
                     }
                     value = 0;
                 }
-                console.log(target.parentNode.parentNode.firstChild.innerHTML);
-                var ajaxParameter = "method=disableServer" + "&" + "idx=" + target.parentNode.parentNode.firstChild.innerHTML + "&" + "value=" + value;
+                console.log(target.parentNode.parentNode.parentNode.firstChild.innerHTML);
+                var ajaxParameter = "method=disableServer" + "&" + "idx=" + target.parentNode.parentNode.parentNode.firstChild.innerHTML + "&" + "value=" + value;
                 loadAjaxData(ajaxParameter, switchServerListCallback);
                 break;
             default:
@@ -305,7 +343,7 @@ var cloudApp = function() {
         switch (ele) {
             case "span":
                 console.log("客户端删除");
-                var state = target.parentNode.previousSibling.firstChild.checked;
+                var state = target.parentNode.previousSibling.firstChild.firstChild.checked;
                 console.log(state);
                 if (state) {
                     alertMessage("请先禁用该计算机后，再进行删除。");
@@ -321,8 +359,8 @@ var cloudApp = function() {
                     value = 1;
                 }
                 console.log("客户端开关");
-                console.log(target.parentNode.parentNode.firstChild.innerHTML);
-                var ajaxParameter = "method=disableClient" + "&" + "idx=" + target.parentNode.parentNode.firstChild.innerHTML + "&" + "value=" + value;
+                console.log(target.parentNode.parentNode.parentNode.firstChild.innerHTML);
+                var ajaxParameter = "method=disableClient" + "&" + "idx=" + target.parentNode.parentNode.parentNode.firstChild.innerHTML + "&" + "value=" + value;
                 loadAjaxData(ajaxParameter, switchClientListCallback);
                 break;
             default:

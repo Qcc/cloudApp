@@ -9,13 +9,13 @@
     <meta name="spm-id" content="a21bo" />
     <link rel="Shortcut Icon" href="images/icon.png" />
     <title>云桌面后台管理</title>
-    <link rel="stylesheet" type="text/css" href="css/main.css?201702081308">
-    <script type="text/javascript" src="js/script.js?201702081308"></script>
+    <link rel="stylesheet" type="text/css" href="css/main.css?201702091608">
+    <script type="text/javascript" src="js/script.js?201702091608"></script>
 </head>
 
 <body>
     <div id="modal"></div>
-    <div id="alertBox">提示文字提示文字提示文字提示文字</div>
+    <div id="alertBox"></div>
     <div id="loading" class="loading">
         <h2>加载中,请稍候...</h2>
         <span></span>
@@ -108,7 +108,16 @@
         </form>
     </div>
     <!--registred结束-->
-
+    <div id="setting-panel" class="settings">
+        <div class="setting-title">
+            <h3>设置</h3>
+            <span id="closeSetting" title="关闭">×</span>
+        </div>
+        <form>
+            <input id="settingsubmit" class="seve-submit" type="submit" value="保 存">
+        </form>
+    </div>
+    <!--settings结束-->
 </body>
 
 </html>
