@@ -45,11 +45,6 @@ li {
 
 /*loging登录框*/
 
-.loging-adv {
-    height: 100%;
-    float: left;
-}
-
 .loging-box {
     color: #fff;
     height: 300px;
@@ -58,12 +53,109 @@ li {
     position: absolute;
     right: 10%;
     top: 80px;
-    background: #000;
     filter: alpha(opacity=70);
-    -moz-opacity: 0.7;
-    -khtml-opacity: 0.7;
-    opacity: 0.7;
     overflow: hidden;
+    border-radius: 10px;
+    border: 1px solid #fff;
+}
+
+.loging-box:hover {
+    background: #333;
+    background: rgba(51, 51, 51, 0.7);
+    filter: alpha(opacity=70);
+}
+
+.username {
+    width: 240px;
+    height: 32px;
+    border: 0;
+    outline: 0;
+    background: #fff;
+    border-radius: 5px 5px 0 0;
+    border-bottom: 1px solid #ccc;
+    opacity: 0.99;
+}
+
+.pwd {
+    width: 240px;
+    height: 32px;
+    border: 0;
+    outline: 0;
+    border-radius: 0 0 5px 5px;
+    border-top: 1px solid #ccc;
+}
+
+.check-code {
+    width: 240px;
+    height: 32px;
+    margin-top: 10px;
+    position: relative;
+    vertical-align: middle;
+    display: none;
+}
+
+
+/*显示验证码*/
+
+.checked {
+    display: block;
+}
+
+.check-input {
+    display: inline-block;
+    margin: 0;
+    padding: 0;
+    width: 100px;
+    height: 32px;
+    border: 0;
+    outline: 0;
+    border-radius: 5px;
+}
+
+.check-img {
+    width: 100px;
+    height: 32px;
+    overflow: hidden;
+    position: absolute;
+}
+
+.option {
+    margin-top: 10px;
+}
+
+.option label {
+    vertical-align: middle;
+}
+
+.option label,
+.option a {
+    font-size: 80%;
+}
+
+.option a:link,
+.option a:visited,
+.option a:hover,
+.option a:active {
+    color: #0773db;
+}
+
+.login-submit {
+    width: 240px;
+    height: 32px;
+    background: #549f33;
+    border: 1px solid rgba(0, 0, 0, .1);
+    border-radius: .2em;
+    box-shadow: 0 .05em .25em rgba(0, 0, 0, .5);
+    color: white;
+    text-shadow: 0 -.05em .05em rgba(0, 0, 0, .5);
+    font-size: 125%;
+    line-height: 35px;
+    outline: none;
+    cursor: pointer;
+}
+
+.login-submit:hover {
+    background: #64af43;
 }
 
 
@@ -98,11 +190,11 @@ li {
 }
 
 .slider>li>img {
-    width: 2560px;
+    width: 1920px;
     height: 760px;
     position: absolute;
     left: 50%;
-    margin-left: -1280px;
+    margin-left: -960px;
 }
 
 
@@ -123,6 +215,7 @@ li {
     margin: 10px;
     width: 15px;
     height: 15px;
+    border-radius: 50%;
     background: #ccc;
     filter: alpha(opacity=40);
     -moz-opacity: 0.4;
@@ -131,11 +224,10 @@ li {
 }
 
 .select {
-    width: 20px;
-    height: 20px;
-    background: #ccc;
+    background: #333;
     filter: alpha(opacity=70);
     -moz-opacity: 0.7;
     -khtml-opacity: 0.7;
     opacity: 0.7;
+    box-shadow: 0 0 2px 2px #fff;
 }

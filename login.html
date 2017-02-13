@@ -4,16 +4,16 @@
 <head>
     <meta charset="UTF-8">
     <title>云桌面后台管理系统</title>
-    <link rel="stylesheet" type="text/css" href="css/login.css?201702101742">
-    <script type="text/javascript" src="js/login.js?201702101822"></script>
+    <link rel="stylesheet" type="text/css" href="css/login.css?201702131342">
+    <script type="text/javascript" src="js/login.js?201702131322"></script>
 </head>
 
 <body>
     <div class="silider-warp">
         <div class="slider-main">
             <ul class="slider" id="slider">
-                <li class="slider-item active"><img src="images/1.jpg"></li>
-                <li class="slider-item"><img src="images/2.jpg"></li>
+                <li class="slider-item active"><img src="images/cloudapp1.jpg"></li>
+                <li class="slider-item"><img src="images/cloudapp2.jpg"></li>
                 <li class="slider-item"><img src="images/3.jpg"></li>
             </ul>
         </div>
@@ -29,14 +29,22 @@
     </div>
     <!--silider-warp结束-->
     <div class="loging-box">
-        <h3>云桌面</h3>
-        <form>
-            <input type="text" placeholder="请输入用户名"><br>
-            <input type="password" placeholder="请输入密码"><br>
-            <input type="text" placeholder="请输入验证码"><a href="#"><span></span></a><br><br>
-            <label><input type="checkbox">记住密码</label>
-            <a href="#">忘记密码？</a><br>
-            <input type="submit" value="登录">
+        <h2>云桌面</h2>
+        <form method="GET" action="./main.pnp">
+            <input class="username" type="text" name="username" placeholder="请输入用户名"><br>
+            <input class="pwd" type="password" name="password" placeholder="请输入密码"><br>
+            <div class="check-code">
+                <input class="check-input" type="text" name="hint" placeholder="请输入验证码">
+                <a class="check-img" href="#"><img src="images/checkcode.png"></a><br>
+            </div>
+            <!--checkcode结束-->
+            <div class="option">
+                <label><input type="checkbox">记住密码</label>&nbsp;|&nbsp;
+                <a href="#">忘记密码？</a>
+            </div>
+            <!--option结束-->
+            <br><br>
+            <input class="login-submit" type="submit" value="登  录">
         </form>
     </div>
     <!--loging-box结束-->
