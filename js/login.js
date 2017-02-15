@@ -28,7 +28,7 @@ var login = function() {
     };
 
     // 判断obj是否有此class
-    var hasClass = function(obj, cls) { //class位于单词边界
+    var hasClass = function(obj, cls) {
             var classList;
             classList = obj.className.split(" ");
             for (var i = 0; i < classList.length; i++) {
